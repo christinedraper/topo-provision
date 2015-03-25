@@ -1,0 +1,160 @@
+{
+	"name": "inttest1",
+	"version": "0.1.0",
+	"buildstamp": "Version: 0.1.0 Build: 1-0037 Time: 2014-12-31T23:08:55.046Z",
+	"id": "inttest1",
+	"tags": 
+	[
+		
+	],
+
+	"nodes": 
+	[
+		{
+			"name": "dbserver",
+			"tags": 
+			[
+				
+			],
+
+			"run_list": 
+			[
+				"recipe[testapp::db]"
+			],
+
+			"normal": 
+			{
+				"topo": 
+				{
+					"node_type": "dbserver",
+					"name": "inttest1"
+				}
+			},
+
+			"provisioning": 
+			{
+				
+			}
+		},
+
+		{
+			"name": "testappserver",
+			"chef_environment": "test",
+			"tags": 
+			[
+				"test"
+			],
+
+			"run_list": 
+			[
+				"recipe[apt]",
+				"recipe[testapp::appserver]",
+				"recipe[testapp::deploy]"
+			],
+
+			"attributes": 
+			{
+				"topo": 
+				{
+					"node_type": "appserver",
+					"name": "inttest1"
+				},
+
+				"testapp": 
+				{
+					"user": "ubuntu",
+					"path": "/var/opt",
+					"test_bool": false,
+					"test_num": 5.4,
+					"db_location": 
+					{
+						"topo_ref": 
+						{
+							"name": "dbserver",
+							"path": ["ipaddress"]
+						}
+					},
+
+					"test_ref": 
+					{
+						"topo_ref": 
+						{
+							"name": "dbserver",
+							"path": ["apt", "cacher-client", "restrict_environment"]
+						}
+					}
+				},
+
+				"test_top_level_bool": true,
+				"test_top_level_num": 2
+			},
+
+			"provisioning": 
+			{
+				"node_group": {
+					"auto_scaling": 
+					{
+						"desired_capacity": 1,
+						"max_size": 2,
+						"min_size": 1,
+						"load_balancers" : [ "appserver-elb" ],
+						 "availability_zones": ["us-west-2c", "us-west-2a", "us-west-2b"]
+					}
+				},
+
+				"machine_options": 
+				{
+					"bootstrap_options": 
+					{
+						"instance_type": "t1.micro",
+						"associate_public_ip_address": true
+					}
+				}
+			}
+		}
+	],
+	
+	"services": [
+		{ 
+			"name": "appserver-elb", 
+			"type": "load_balancer", 
+			"provisioning" :{
+				"load_balancer_options" :
+				{  "listeners": [
+					{
+				      "port": 3001,
+				      "protocol": "HTTP",
+				      "instance_port": 3001,
+				      "instance_protocol": "HTTP"
+				    }],
+				    "availability_zones": ["us-west-2c", "us-west-2a", "us-west-2b"]    
+				}
+			}
+		}
+	],
+	"network" : [
+		{ "name": "example-vpc", "type": "aws_vpc", "provisioning" : {} },
+		{ "name": "subnet-1", "type": "aws_subnet", 
+		"provisioning": { "vpc" : { "topo_ref" : { "name": "aws_vpc", "path": ["vpc_id"] }} }}
+	],
+
+	"provisioning": 
+	{
+		"driver": "aws:christine",
+		"machine_options": 
+		{
+			"bootstrap_options": 
+			{
+				"key_name": "test1_aws",
+				"instance_type": "t1.micro",
+				"associate_public_ip_address": true
+			},
+			"ssh_username": "ubuntu"
+		}	
+	},
+
+	"cookbook_attributes": 
+	[
+		
+	]
+}

@@ -1,0 +1,30 @@
+{
+	"name": "inttest1",
+	"version": "0.1.0",
+	"buildstamp": "Version: 0.1.0 Build: 1-0037 Time: 2014-12-31T23:08:55.046Z",
+	"id": "inttest1",
+	
+	"services": [
+		{ 
+			"name": "appserver-elb", 
+			"type": "load_balancer", 
+			"provisioning" :{
+				"load_balancer_options" :
+				{  "listeners": [
+					{
+				      "port": 3001,
+				      "protocol": "HTTP",
+				      "instance_port": 3001,
+				      "instance_protocol": "HTTP"
+				    }],
+				    "availability_zones": ["us-west-2c", "us-west-2a", "us-west-2b"]    
+				}
+			}
+		}
+	],
+
+	"provisioning": 
+	{
+		"driver": "aws:christine"
+	}
+}

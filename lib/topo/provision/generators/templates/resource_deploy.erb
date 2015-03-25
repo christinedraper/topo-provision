@@ -1,0 +1,5 @@
+
+<%= resource_type %> "<%= name %>" do
+<% resource_attributes.each do |key, val| %><%="  #{key}(#{val.inspect})\n" %><% end %>
+end
+

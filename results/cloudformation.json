@@ -1,0 +1,97 @@
+{
+  "nodes": [
+    {
+      "name": "instancedbserver",
+      "provisioning": {
+        "machine_options": {
+          "bootstrap_options": {
+            "disable_api_termination": false,
+            "image_id": "ami-f1ce8bc1",
+            "instance_type": "t1.micro",
+            "kernel_id": "aki-fc8f11cc",
+            "key_name": "test1_aws",
+            "monitoring_enabled": false,
+            "associate_public_ip_address": "true"
+          }
+        },
+        "tags": [
+          {
+            "key": "Name",
+            "value": "dbserver"
+          }
+        ],
+        "network_interfaces": [
+          {
+            "delete_on_termination": true,
+            "device_index": 0,
+            "associate_public_ip_address": "true"
+          }
+        ]
+      }
+    },
+    {
+      "name": "asgappservergroup",
+      "provisioning": {
+        "machine_options": {
+        },
+        "node_group": {
+          "auto_scaling": {
+            "availability_zones": [
+              "us-west-2c",
+              "us-west-2b",
+              "us-west-2a"
+            ],
+            "group_options": {
+              "cooldown": 300,
+              "desired_capacity": 1,
+              "max_size": 2,
+              "min_size": 1,
+              "health_check_grace_period": 0,
+              "health_check_type": "EC2"
+            },
+            "launch_configuration_options": {
+              "image_id": "ami-97ba9aa7",
+              "instance_type": "t1.micro",
+              "instance_monitoring": "true"
+            },
+            "load_balancers": [
+              "elbappserverelb"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "services": [
+    {
+      "name": "elbappserverelb",
+      "type": "load_balancer",
+      "provisioning": {
+        "load_balancer_options": {
+          "availability_zones": [
+            "us-west-2c",
+            "us-west-2b",
+            "us-west-2a"
+          ],
+          "listeners": [
+            {
+              "instance_port": 3001,
+              "protocol": "HTTP",
+              "instance_protocol": "HTTP",
+              "port": 3001
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "network": [
+
+  ],
+  "provisioning": {
+    "driver": "aws",
+    "machine_options": {
+    }
+  },
+  "name": "ai-autoscaling"
+}

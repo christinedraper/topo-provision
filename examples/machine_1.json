@@ -1,0 +1,40 @@
+{
+	"name": "inttest1",
+	"version": "0.1.0",
+	"buildstamp": "Version: 0.1.0 Build: 1-0037 Time: 2014-12-31T23:08:55.046Z",
+	"id": "inttest1",
+	"tags": 
+	[
+		
+	],
+
+	"nodes": 
+	[
+		{
+			"name": "dbserver",
+			"tags": 
+			[
+				
+			],
+
+			"run_list": 
+			[
+				"recipe[testapp::db]"
+			],
+
+			"normal": 
+			{
+				"topo": 
+				{
+					"node_type": "dbserver",
+					"name": "inttest1"
+				}
+			},
+
+			"provisioning": 
+			{
+				
+			}
+		}
+	]
+}

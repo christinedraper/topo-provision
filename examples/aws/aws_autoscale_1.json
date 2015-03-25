@@ -1,0 +1,46 @@
+{
+	"name": "inttest1",
+	"id": "inttest1",
+	"nodes": 
+	[
+		{
+			"name": "aws-autoscale-1",
+			"provisioning": 
+			{
+				"node_group": {
+					"auto_scaling": 
+					{
+						"instance_type": "t2.micro",
+						"desired_capacity": 1,
+						"availability_zones": ["us-west-2a","us-west-2b","us-west-2c" ],
+						"launch_configuration_options" : {
+						"instance_type": "t1.micro",
+						"detailed_monitoring": "false"
+						},
+						"group_options": {
+						  "health_check_type": "ec2",
+						  "default_cooldown" : 250,
+						  "max_size": 2
+						}
+					}
+				}
+			}
+		}
+	],
+
+	"provisioning": 
+	{
+		"driver": "aws",
+		"machine_options": 
+		{
+			"bootstrap_options": 
+			{
+				"key_name": "test1_aws",
+				"instance_type": "t2.micro",
+				"associate_public_ip_address": true,
+				"image_id": "ami-8f7959bf"
+			},
+			"ssh_username": "ubuntu"
+		}	
+	}
+}

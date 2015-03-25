@@ -1,0 +1,76 @@
+{
+	"name": "inttest1",
+	"version": "0.1.0",
+	"buildstamp": "Version: 0.1.0 Build: 1-0037 Time: 2014-12-31T23:08:55.046Z",
+	"id": "inttest1",
+	"tags": 
+	[
+		
+	],
+
+	"nodes": 
+	[
+		{
+			"name": "appserver",
+			"chef_environment": "test",
+			"tags": 
+			[
+				"test"
+			],
+
+			"run_list": 
+			[
+				"recipe[apt]",
+				"recipe[testapp::appserver]",
+				"recipe[testapp::deploy]"
+			],
+
+			"attributes": 
+			{
+				"topo": 
+				{
+					"node_type": "appserver",
+					"name": "inttest1"
+				},
+
+				"testapp": 
+				{
+					"user": "ubuntu",
+					"path": "/var/opt",
+					"test_bool": false,
+					"test_num": 5.4
+				},
+
+				"test_top_level_bool": true,
+				"test_top_level_num": 2
+			},
+
+			"provisioning": 
+			{
+				"machine_options": 
+				{
+					"bootstrap_options": 
+					{
+						"instance_type": "t1.micro",
+						"associate_public_ip_address": true
+					}
+				}
+			}
+		}
+	],
+	
+	"provisioning": 
+	{
+		"driver": "aws:christine",
+		"machine_options": 
+		{
+			"bootstrap_options": 
+			{
+				"key_name": "test1_aws",
+				"instance_type": "t1.micro",
+				"associate_public_ip_address": true
+			},
+			"ssh_username": "ubuntu"
+		}	
+	}
+}

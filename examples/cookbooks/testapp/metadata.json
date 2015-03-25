@@ -1,0 +1,33 @@
+{
+  "name": "testapp",
+  "description": "Installs/Configures test application",
+  "long_description": "Test Application Cookbook\n=========================\nA simple nodejs application that puts up a welcome page.\n\nRequirements\n------------\nTested on Ubuntu 12.04 LTS.\n\n#### packages\n- `nodejs` - The test application is a nodejs application\n- ` mongodb` - In the future, the test application will have a connection to a database\n\nAttributes\n----------\nNone\n\n\nRecipes\n-------\n#### testapp::default\n\n\n\nLicense and Authors\n-------------------\nAuthors: Christine Draper, ThirdWave Insights, LLC\n",
+  "maintainer": "ThirdWave Insights LLC",
+  "maintainer_email": "christine_draper@thirdwaveinsights.com",
+  "license": "Apache v2.0",
+  "platforms": {
+  },
+  "dependencies": {
+    "mongodb": "~> 0.16",
+    "nodejs": "~> 1.3"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.1.0",
+  "source_url": "",
+  "issues_url": ""
+}

@@ -1,0 +1,59 @@
+{
+	"name": "inttest1",
+	"id": "inttest1",
+	"nodes": 
+	[
+		{
+			"name": "aws-autoscale-2",
+			"tags": 
+			[
+				"autoscaling2"
+			],
+
+			"run_list": 
+			[
+				"recipe[testapp::db]"
+			],
+
+			"normal": 
+			{
+				"topo": 
+				{
+					"node_type": "dbserver",
+					"name": "inttest1"
+				}
+			},
+			"provisioning": 
+			{
+				"machine_options": 
+				{
+					"bootstrap_options": 
+					{
+						"instance_type": "t1.micro"
+					}
+				},	
+				"node_group": {
+					"auto_scaling": 
+					{
+					}
+				}
+			}
+		}
+	],
+
+	"provisioning": 
+	{
+		"driver": "aws",
+		"machine_options": 
+		{
+			"bootstrap_options": 
+			{
+				"key_name": "test1_aws",
+				"instance_type": "t2.micro",
+				"associate_public_ip_address": true,
+				"image_id": "ami-8f7959bf"
+			},
+			"ssh_username": "ubuntu"
+		}	
+	}
+}

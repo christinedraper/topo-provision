@@ -1,0 +1,80 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+      "instancedbserver": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "DisableApiTermination": "FALSE",
+        "ImageId": "ami-f1ce8bc1",
+        "InstanceType": "t1.micro",
+        "KernelId": "aki-fc8f11cc",
+        "KeyName": "test1_aws",
+        "Monitoring": "false",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "dbserver"
+          }
+        ],
+        "NetworkInterfaces": [
+          {
+             "DeleteOnTermination": "true",
+            "DeviceIndex": 0,
+           "AssociatePublicIpAddress": "true"
+          }
+        ]
+      }
+    },
+    "elbappserverelb": {
+      "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
+      "Properties": {
+        "AvailabilityZones": [
+          "us-west-2c",
+          "us-west-2b",
+          "us-west-2a"
+        ],
+        "Listeners": [
+          {
+            "InstancePort": "3001",
+            "LoadBalancerPort": "3001",
+            "Protocol": "HTTP",
+            "InstanceProtocol": "HTTP"
+          }
+        ]
+      }
+    },
+    "asgappservergroup": {
+      "Type": "AWS::AutoScaling::AutoScalingGroup",
+      "Properties": {
+        "AvailabilityZones": [
+          "us-west-2c",
+          "us-west-2b",
+          "us-west-2a"
+        ],
+        "Cooldown": "300",
+        "DesiredCapacity": "1",
+        "MaxSize": "2",
+        "MinSize": "1",
+        "HealthCheckGracePeriod": "0",
+        "HealthCheckType": "EC2",
+        "LaunchConfigurationName": {
+          "Ref": "lcappserverconfig"
+        },
+        "LoadBalancerNames": [
+          {
+            "Ref": "elbappserverelb"
+          }
+        ]
+      }
+    },
+    "lcappserverconfig": {
+      "Type": "AWS::AutoScaling::LaunchConfiguration",
+      "Properties": {
+        "ImageId": "ami-97ba9aa7",
+        "InstanceType": "t1.micro",
+        "InstanceMonitoring": "true"
+      }
+    }
+  },
+  "Description": "Autoscaling cluster with ELB"
+}

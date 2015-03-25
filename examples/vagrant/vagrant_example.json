@@ -1,0 +1,159 @@
+{
+	"name": "inttest1",
+	"version": "0.1.0",
+	"buildstamp": "Version: 0.1.0 Build: 1-0037 Time: 2014-12-31T23:08:55.046Z",
+	"id": "inttest1",
+	"tags": 
+	[
+		
+	],
+
+	"nodes": 
+	[
+		{
+			"name": "dbserver",
+			"tags": 
+			[
+				
+			],
+
+			"run_list": 
+			[
+				"recipe[testapp::db]"
+			],
+
+			"normal": 
+			{
+				"topo": 
+				{
+					"node_type": "dbserver",
+					"name": "inttest1"
+				}
+			},
+
+			"provisioning": 
+			{
+				
+			}
+		},
+
+		{
+			"name": "appserver",
+			"chef_environment": "test",
+			"tags": 
+			[
+				"test"
+			],
+
+			"run_list": 
+			[
+				"recipe[apt]",
+				"recipe[testapp::appserver]",
+				"recipe[testapp::deploy]"
+			],
+
+			"attributes": 
+			{
+				"topo": 
+				{
+					"node_type": "appserver",
+					"name": "inttest1"
+				},
+
+				"testapp": 
+				{
+					"user": "vagrant",
+					"path": "/home/vagrant",
+					"test_bool": false,
+					"test_num": 5.4,
+					"db_location": 
+					{
+						"topo_ref": 
+						{
+							"name": "dbserver",
+							"path": 
+							[
+								"ipaddress"
+							]
+						}
+					},
+
+					"test_ref": 
+					{
+						"topo_ref": 
+						{
+							"name": "dbserver",
+							"path": 
+							[
+								"apt",
+								"cacher-client",
+								"restrict_environment"
+							]
+						}
+					}
+				},
+
+				"test_top_level_bool": true,
+				"test_top_level_num": 2
+			},
+
+			"provisioning": 
+			{
+				"driver": "vagrant",
+				"machine_options": 
+				{
+					"vagrant_config": "config.vm.network 'private_network', type: 'dhcp' \n config.vm.network 'forwarded_port', guest: 3001, host: 3031"
+				}
+			}
+		}
+	],
+
+	"provisioning": 
+	{
+		"driver": "vagrant",
+		"machine_options": 
+		{
+			"vagrant_config": "config.vm.network 'private_network', type: 'dhcp'",
+			"vagrant_options": 
+			{
+				"vm.box": "ubuntu64"
+			}
+		}
+	},
+
+	"cookbook_attributes": 
+	[
+		{
+			"cookbook": "topo",
+			"filename": "topology",
+			"default": 
+			{
+				"testapp": 
+				{
+					"user": "vagrant",
+					"path": "/home/vagrant",
+					"db_location": "#{search(:node, 'name:dbserver').first['ipaddress']}"
+				},
+
+				"nodejs": 
+				{
+					"version": "0.10.29",
+					"binary": 
+					{
+						"checksum": 
+						{
+							"linux_x64": "ac52da27a4e298a6de610de25b22628bdb97b78cb29d11464ef5cfa2e57847d5"
+						}
+					},
+
+					"install_method": "binary"
+				},
+
+				"mongodb": 
+				{
+					"package_version": "2.6.4"
+				}
+			}
+		}
+	]
+}
