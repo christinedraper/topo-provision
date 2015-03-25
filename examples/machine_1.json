@@ -11,7 +11,7 @@
 	"nodes": 
 	[
 		{
-			"name": "dbserver",
+			"name": "dbserver-m1",
 			"tags": 
 			[
 				

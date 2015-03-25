@@ -16,6 +16,8 @@
 # limitations under the License.
 #
 
+require 'stringio'
+
 
 module Topo
   module Output
@@ -25,7 +27,7 @@ module Topo
       $stdout.string
     ensure
       # Restore the previous value of stdout
-      $stdout = previous_stdout
-    end
+      $stdout = previous_stdout || STDOUT
+   end
   end
 end

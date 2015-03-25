@@ -54,7 +54,7 @@ module Topo
       end
       
       def undeploy()
-        batch_action(:undeploy)
+        batch_action(:destroy)
       end
       
       def stop()
@@ -64,7 +64,7 @@ module Topo
       def batch_action(action)
         machine_names = []
         1.upto @size do |i|
-          machine_names << "#{name}#{@size}"
+          machine_names << "#{name}#{i}"
         end
         puts(template("action").result(binding))   
       end

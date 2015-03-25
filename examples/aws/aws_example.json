@@ -11,7 +11,7 @@
 	"nodes": 
 	[
 		{
-			"name": "dbserver",
+			"name": "dbserver-aws1",
 			"tags": 
 			[
 				
@@ -38,7 +38,7 @@
 		},
 
 		{
-			"name": "testappserver",
+			"name": "testappserver-aws1",
 			"chef_environment": "test",
 			"tags": 
 			[
@@ -70,7 +70,7 @@
 					{
 						"topo_ref": 
 						{
-							"name": "dbserver",
+							"name": "dbserver-aws1",
 							"path": ["ipaddress"]
 						}
 					},
@@ -79,7 +79,7 @@
 					{
 						"topo_ref": 
 						{
-							"name": "dbserver",
+							"name": "dbserver-aws1",
 							"path": ["apt", "cacher-client", "restrict_environment"]
 						}
 					}

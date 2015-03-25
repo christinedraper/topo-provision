@@ -19,6 +19,7 @@
 #
 # This module contains functions useful for parsing, converting and generating
 #
+require 'set'
 
 module Topo
   module ParseGen

@@ -11,7 +11,7 @@
 	"nodes": 
 	[
 		{
-			"name": "appserver",
+			"name": "appserver-n1",
 			"chef_environment": "test",
 			"tags": 
 			[

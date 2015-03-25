@@ -11,7 +11,7 @@
 	"nodes": 
 	[
 		{
-			"name": "dbserver",
+			"name": "dbserver-vg1",
 			"tags": 
 			[
 				
@@ -38,7 +38,7 @@
 		},
 
 		{
-			"name": "appserver",
+			"name": "appserver-vg1",
 			"chef_environment": "test",
 			"tags": 
 			[
@@ -70,7 +70,7 @@
 					{
 						"topo_ref": 
 						{
-							"name": "dbserver",
+							"name": "dbserver-vg1",
 							"path": 
 							[
 								"ipaddress"
@@ -82,7 +82,7 @@
 					{
 						"topo_ref": 
 						{
-							"name": "dbserver",
+							"name": "dbserver-vg1",
 							"path": 
 							[
 								"apt",
@@ -132,7 +132,7 @@
 				{
 					"user": "vagrant",
 					"path": "/home/vagrant",
-					"db_location": "#{search(:node, 'name:dbserver').first['ipaddress']}"
+					"db_location": "#{search(:node, 'dbserver-vg1').first['ipaddress']}"
 				},
 
 				"nodejs": 

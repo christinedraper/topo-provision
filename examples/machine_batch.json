@@ -11,7 +11,7 @@
 	"nodes": 
 	[
 		{
-			"name": "dbserver",
+			"name": "dbserver-batch",
 			"run_list": 
 			[
 				"recipe[testapp::db]"
