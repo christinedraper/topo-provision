@@ -63,6 +63,10 @@ The Topology Generator `Topo::Provision::TopologyGenerator` is the top-level gen
 driver generators and generates a resource graph based on topo_ref dependencies, that it traverses in either
 a forward or reverse direction, depending on the actions.
 
+### Installation
+
+gem install topo-provision
+
 ### Converters
 
 Converters accept a format other than topology JSON, and convert it to
