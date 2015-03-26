@@ -6,10 +6,10 @@ require 'topo/provision/version'
 Gem::Specification.new do |spec|
   spec.name          = "topo-provision"
   spec.version       = Topo::Provision::VERSION
-  spec.authors       = ["christine_draper"]
+  spec.authors       = ["Christine Draper"]
   spec.email         = ["christine_draper@thirdwaveinsights.com"]
-  spec.summary       = %q{ Write a short summary. Required.}
-  spec.description   = %q{Write a longer description. Optional.}
+  spec.summary       = %q{ Generates Chef provisioning recipes from a topology JSON file. }
+  spec.description   = %q{ Generate Chef provisioning recipes that can deploy resources such as instance and load balancers to cloud providers (e.g. AWS) or virtual machines in Vagrant. Convert from other formats such as CloudFormation.  }
   spec.homepage      = "https://github.com/christinedraper/topo-provision"
   spec.license       = "Apache License (2.0)"
 
