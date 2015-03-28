@@ -8,8 +8,8 @@ plugin. In addition, it is possible to convert from other formats. The
 only converter currently implemented is for CloudFormation.
 
 This utility IS NOT READY FOR PRODUCTION USE. It is best described as a
-"proof of concept". It has been tested with a pre-release version of 
-chef-provisioning 1.0.
+"proof of concept". It has been tested with a pre-release build of 
+chef-provisioning 0.5.
 
 ## Features
 
