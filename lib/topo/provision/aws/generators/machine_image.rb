@@ -32,6 +32,11 @@ module Topo
         @resource_attributes['image_options'] = convert_keys_to_sym_deep(opts) if opts
         @machine_options = convert_keys_to_sym_deep(@machine_options) if @machine_options
       end
+      
+      # AWS driver doesnt currently support stop
+      def stop()
+        default_action('stop')
+      end
      
     end
   end

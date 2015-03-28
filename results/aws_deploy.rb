@@ -33,13 +33,13 @@ machine_image "testappserver-aws1_image" do
     }
     {'user' => "ubuntu", 'path' => "/var/opt", 'test_bool' => false, 'test_num' => 5.4, 'db_location' => topo_search_node_fn.call("dbserver-aws1", ["ipaddress"]), 'test_ref' => topo_search_node_fn.call("dbserver-aws1", ["apt", "cacher-client", "restrict_environment"])}
    } 
-  add_machine_options({:bootstrap_options=>{:instance_type=>"t1.micro", :associate_public_ip_address=>true}})
+  add_machine_options({:bootstrap_options=>{:instance_type=>"t1.micro"}})
 end
 
 
 aws_launch_configuration "testappserver-aws1_config" do
   image("testappserver-aws1_image")
-  options({:instance_type=>"t1.micro", :associate_public_ip_address=>true})
+  options({:instance_type=>"t1.micro"})
 end
 
 

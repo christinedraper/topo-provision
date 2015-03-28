@@ -106,8 +106,7 @@
 				{
 					"bootstrap_options": 
 					{
-						"instance_type": "t1.micro",
-						"associate_public_ip_address": true
+						"instance_type": "t1.micro"
 					}
 				}
 			}

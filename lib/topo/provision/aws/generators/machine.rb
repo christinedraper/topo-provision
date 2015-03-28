@@ -18,9 +18,6 @@
 
 require 'topo/provision/generators/resource'
 
-#
-# The ResourceGenerator class generates the recipe resources  
-#
 
 module Topo
   module Provision
@@ -29,6 +26,11 @@ module Topo
       def initialize(data)
         super
         @machine_options = convert_keys_to_sym_deep(@machine_options) if @machine_options
+      end
+      
+      # AWS driver doesnt currently support stop
+      def stop()
+        default_action('stop')
       end
      
     end
