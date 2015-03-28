@@ -11,6 +11,9 @@
 *.so
 *.o
 *.a
+*.gem
+.buildpath
+.project
 mkmf.log
 /ruby/
 /gen/

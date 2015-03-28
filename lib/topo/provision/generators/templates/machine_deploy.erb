@@ -3,7 +3,10 @@
 <% resource_attributes.each do |key, val| %><%="  #{key}(#{val.inspect})\n" %><% end %>
 <% normal_attributes.each do |key, val| %><%="  attribute '#{key}', #{val.inspect} \n" %><% end %>
 <% lazy_attributes.each do |key, val| %><%="  attribute '#{key}', lazy{
-    topo_search_node_fn = Proc.new { |node, path| (search(:node, \"name:\" + node, :filter_result => { 'val' => path }).first)['data']['val'] }
+    topo_search_node_fn = Proc.new { |node, path| 
+      result = search(:node, \"name:\" + node, :filter_result => { 'val' => path }).first
+      result['val'] if result 
+    }
     {#{val}}
    } \n" %><% end %>
 <% if (machine_options) %><%= "  add_machine_options(#{machine_options.inspect})\n" %><% end %>

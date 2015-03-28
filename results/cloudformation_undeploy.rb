@@ -8,11 +8,11 @@ with_machine_options({})
 
 
 aws_auto_scaling_group "asgappservergroup_group" do
-  action "delete"  
+  action "destroy"  
 end
 
 aws_launch_configuration "asgappservergroup_config" do
-  action "delete"  
+  action "destroy"  
 end
 
 machine "instancedbserver" do

@@ -12,14 +12,14 @@ load_balancer "appserver-elb" do
 end
 
 
-machine "dbserver" do
+machine "dbserver-aws1" do
   run_list(["recipe[testapp::db]"])
   tags([])
   attribute 'topo', {"node_type"=>"dbserver", "name"=>"inttest1"} 
 end
 
 
-machine_image "testappserver_image" do
+machine_image "testappserver-aws1_image" do
   run_list(["recipe[apt]", "recipe[testapp::appserver]", "recipe[testapp::deploy]"])
   chef_environment("test")
   tags(["test"])
@@ -27,21 +27,24 @@ machine_image "testappserver_image" do
   attribute 'test_top_level_bool', true 
   attribute 'test_top_level_num', 2 
   attribute 'testapp', lazy{
-    topo_search_node_fn = Proc.new { |node, path| (search(:node, "name:" + node, :filter_result => { 'val' => path }).first)['data']['val'] }
-    {'user' => "ubuntu", 'path' => "/var/opt", 'test_bool' => false, 'test_num' => 5.4, 'db_location' => topo_search_node_fn.call("dbserver", ["ipaddress"]), 'test_ref' => topo_search_node_fn.call("dbserver", ["apt", "cacher-client", "restrict_environment"])}
+    topo_search_node_fn = Proc.new { |node, path| 
+      result = search(:node, "name:" + node, :filter_result => { 'val' => path }).first
+      result['val'] if result 
+    }
+    {'user' => "ubuntu", 'path' => "/var/opt", 'test_bool' => false, 'test_num' => 5.4, 'db_location' => topo_search_node_fn.call("dbserver-aws1", ["ipaddress"]), 'test_ref' => topo_search_node_fn.call("dbserver-aws1", ["apt", "cacher-client", "restrict_environment"])}
    } 
   add_machine_options({:bootstrap_options=>{:instance_type=>"t1.micro", :associate_public_ip_address=>true}})
 end
 
 
-aws_launch_configuration "testappserver_config" do
-  image("testappserver_image")
+aws_launch_configuration "testappserver-aws1_config" do
+  image("testappserver-aws1_image")
   options({:instance_type=>"t1.micro", :associate_public_ip_address=>true})
 end
 
 
-aws_auto_scaling_group "testappserver_group" do
-  launch_configuration("testappserver_config")
+aws_auto_scaling_group "testappserver-aws1_group" do
+  launch_configuration("testappserver-aws1_config")
   max_size(2)
   min_size(1)
   desired_capacity(1)

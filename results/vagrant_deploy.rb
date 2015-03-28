@@ -7,14 +7,14 @@ with_driver('vagrant')
 with_machine_options({:vagrant_config=>"config.vm.network 'private_network', type: 'dhcp'", :vagrant_options=>{"vm.box"=>"ubuntu64"}})
 
 
-machine "dbserver" do
+machine "dbserver-vg1" do
   run_list(["recipe[testapp::db]"])
   tags([])
   attribute 'topo', {"node_type"=>"dbserver", "name"=>"inttest1"} 
 end
 
 
-machine "appserver" do
+machine "appserver-vg1" do
   driver("vagrant")
   run_list(["recipe[apt]", "recipe[testapp::appserver]", "recipe[testapp::deploy]"])
   chef_environment("test")
@@ -23,8 +23,11 @@ machine "appserver" do
   attribute 'test_top_level_bool', true 
   attribute 'test_top_level_num', 2 
   attribute 'testapp', lazy{
-    topo_search_node_fn = Proc.new { |node, path| (search(:node, "name:" + node, :filter_result => { 'val' => path }).first)['data']['val'] }
-    {'user' => "vagrant", 'path' => "/home/vagrant", 'test_bool' => false, 'test_num' => 5.4, 'db_location' => topo_search_node_fn.call("dbserver", ["ipaddress"]), 'test_ref' => topo_search_node_fn.call("dbserver", ["apt", "cacher-client", "restrict_environment"])}
+    topo_search_node_fn = Proc.new { |node, path| 
+      result = search(:node, "name:" + node, :filter_result => { 'val' => path }).first
+      result['val'] if result 
+    }
+    {'user' => "vagrant", 'path' => "/home/vagrant", 'test_bool' => false, 'test_num' => 5.4, 'db_location' => topo_search_node_fn.call("dbserver-vg1", ["ipaddress"]), 'test_ref' => topo_search_node_fn.call("dbserver-vg1", ["apt", "cacher-client", "restrict_environment"])}
    } 
   add_machine_options({:vagrant_config=>"config.vm.network 'private_network', type: 'dhcp' \n config.vm.network 'forwarded_port', guest: 3001, host: 3031"})
 end

@@ -34,7 +34,7 @@ module Topo
       def initialize(data)
         @resource_type||= "resource"  # define in each class
         @template_base_name = @resource_type
-        @undeploy_action = "delete"
+        @undeploy_action = "destroy"
         @resource_attributes = {}  # define in each class
         @name = data['name']
         provisioning = data['provisioning']

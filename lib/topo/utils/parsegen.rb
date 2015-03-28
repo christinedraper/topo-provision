@@ -88,13 +88,9 @@ module Topo
       str
     end
 
-    # Expand a particular reference into either a node search
-    # In future, may need to search resource type data bag, e.g. using
-    # topo_search_data_bag_fn = Proc.new { |bag, id, path| (search(bag, "id:#{id}", :filter_result => { 'val' => path }).first)['data']['val'] }
-    #
+    # Expand a particular reference into a node search
    def expand_ref(ref)
      path = ref['path']
-     # Wanted to use the following and define a proc, but does not work for some resources
      "topo_search_node_fn.call(#{ref['name'].inspect}, #{path})"
    end
 
