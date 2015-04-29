@@ -1,5 +1,5 @@
 
 <%= resource_type %> "<%= name %>" do
-  action <%= undeploy_action.inspect %>
+  action <%= undeploy_action.to_sym.inspect %>
   
 end

@@ -25,6 +25,8 @@ module Topo
       def initialize(data)
         @resource_type ||= "chef_node"
         super
+        
+        @undeploy_action = "delete"
         %w[run_list chef_environment tags attributes].each do |key|
           @resource_attributes[key] = data[key] if data.key? key
         end
