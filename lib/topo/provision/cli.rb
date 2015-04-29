@@ -42,6 +42,14 @@ module Topo
              long: '--action deploy|undeploy|stop',
              description: 'Specifies action to generate - defaults to deploy',
              default: "deploy"
+             
+      option :version,
+              short: '-v',
+              long: '--version',
+              description: 'Show topo-provision version',
+              boolean: true,
+              proc: Proc.new { puts "topo-provision: #{Topo::Provision::VERSION}" },
+              exit: 0
                                                                     
       attr_accessor :topology
       
