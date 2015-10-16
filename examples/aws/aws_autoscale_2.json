@@ -29,7 +29,7 @@
 				{
 					"bootstrap_options": 
 					{
-						"instance_type": "t1.micro"
+						"instance_type": "t2.micro"
 					}
 				},	
 				"node_group": {

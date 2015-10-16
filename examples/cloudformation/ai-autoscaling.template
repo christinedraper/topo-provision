@@ -6,7 +6,7 @@
       "Properties": {
         "DisableApiTermination": "FALSE",
         "ImageId": "ami-f1ce8bc1",
-        "InstanceType": "t1.micro",
+        "InstanceType": "t2.micro",
         "KernelId": "aki-fc8f11cc",
         "KeyName": "test1_aws",
         "Monitoring": "false",
@@ -71,7 +71,7 @@
       "Type": "AWS::AutoScaling::LaunchConfiguration",
       "Properties": {
         "ImageId": "ami-97ba9aa7",
-        "InstanceType": "t1.micro",
+        "InstanceType": "t2.micro",
         "InstanceMonitoring": "true"
       }
     }

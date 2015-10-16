@@ -14,7 +14,7 @@
 						"desired_capacity": 1,
 						"availability_zones": ["us-west-2a","us-west-2b","us-west-2c" ],
 						"launch_configuration_options" : {
-						"instance_type": "t1.micro",
+						"instance_type": "t2.micro",
 						"detailed_monitoring": "false"
 						},
 						"group_options": {

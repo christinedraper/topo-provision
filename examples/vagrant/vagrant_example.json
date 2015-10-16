@@ -116,7 +116,8 @@
 			"vagrant_config": "config.vm.network 'private_network', type: 'dhcp'",
 			"vagrant_options": 
 			{
-				"vm.box": "ubuntu64"
+				"vm.box": "ubuntu64",
+				"vm.box_url" : "http://files.vagrantup.com/precise64.box"
 			}
 		}
 	},

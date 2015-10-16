@@ -106,7 +106,7 @@
 				{
 					"bootstrap_options": 
 					{
-						"instance_type": "t1.micro"
+						"instance_type": "t2.micro"
 					}
 				}
 			}
@@ -145,7 +145,8 @@
 			"bootstrap_options": 
 			{
 				"key_name": "test1_aws",
-				"instance_type": "t1.micro",
+				"instance_type": "t2.micro",
+				"image_id": "ami-1a1eff29",
 				"associate_public_ip_address": true
 			},
 			"ssh_username": "ubuntu"
